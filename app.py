@@ -1,8 +1,7 @@
 from flask import Flask,redirect,render_template,request,url_for
 from flask_sqlalchemy import SQLAlchemy
-from pytube import YouTube
-
 import os
+import pytube
 
 app = Flask(__name__)
 # creatimg configs
@@ -25,14 +24,16 @@ def home():
         # python function to download video
         def download_yt(url):
             print('getting video...')
-            yt = YouTube(url)
+            #yt = YouTube(url)
+            yt = pytube.YouTube(link)
             print('getting streams')
-
-            streams=yt.streams.first()
+            #streams=yt.streams.first()
+            stream = yt.streams.first()
             print('getting video title...')
             # print(yt.title)
             print('downloading video...')
-            yt.streams.download()
+            #yt.streams.download()
+            stream.download()
             print('#####Download complete#####')
             # calling function to download
         download_video = download_yt(recieved_url)
